@@ -1,12 +1,32 @@
 document.addEventListener('DOMContentLoaded', function() {
     const slider = document.querySelector('.slider');
     const slides = document.querySelectorAll('.slide');
+    const leftArrow = document.querySelector('.left-arrow');
+    const rightArrow = document.querySelector('.right-arrow');
     let currentIndex = 1; // Indexul curent al slide-ului, începând cu al doilea slide
 
     // Funcție pentru actualizarea poziției slider-ului
     function updateSliderPosition() {
         slider.style.transform = `translateX(${-currentIndex * 100}%)`;
     }
+
+    // Adăugăm event listener pentru butonul stânga
+    leftArrow.addEventListener('click', () => {
+        currentIndex--;
+        if (currentIndex < 0) {
+            currentIndex = slides.length - 3; // Setăm la penultimul slide
+        }
+        updateSliderPosition();
+    });
+
+    // Adăugăm event listener pentru butonul dreapta
+    rightArrow.addEventListener('click', () => {
+        currentIndex++;
+        if (currentIndex >= slides.length - 1) {
+            currentIndex = 1; // Setăm la al doilea slide
+        }
+        updateSliderPosition();
+    });
 
     // Setăm slide-urile inițiale pentru a asigura scroll-ul infinit
     slides.forEach((slide, index) => {
@@ -51,43 +71,19 @@ document.addEventListener('DOMContentLoaded', function() {
         if (touchStartX - touchEndX > 50) {
             // Swipe left
             currentIndex++;
-            slider.style.transition = 'transform 0.5s ease';
-            slider.style.transform = `translateX(${-currentIndex * 100}%)`;
+            if (currentIndex >= slides.length - 1) {
+                currentIndex = 1;
+            }
+            updateSliderPosition();
         }
 
         if (touchEndX - touchStartX > 50) {
             // Swipe right
             currentIndex--;
-            slider.style.transition = 'transform 0.5s ease';
-            slider.style.transform = `translateX(${-currentIndex * 100}%)`;
+            if (currentIndex < 0) {
+                currentIndex = slides.length - 3;
+            }
+            updateSliderPosition();
         }
-
-        // Verificăm dacă s-a ajuns la clonări și ajustăm currentIndex și transformarea slider-ului
-        if (currentIndex >= slides.length) {
-            setTimeout(() => {
-                currentIndex = 1;
-                slider.style.transition = 'none';
-                slider.style.transform = `translateX(${-currentIndex * 100}%)`;
-            }, 500);
-        }
-
-        if (currentIndex < 0) {
-            setTimeout(() => {
-                currentIndex = slides.length - 2;
-                slider.style.transition = 'none';
-                slider.style.transform = `translateX(${-currentIndex * 100}%)`;
-            }, 500);
-        }
-    }
-
-    // Eliminăm sagetile din colțul stânga jos
-    const leftArrow = document.querySelector('.left-arrow');
-    if (leftArrow) {
-        leftArrow.style.display = 'none';
-    }
-
-    const rightArrow = document.querySelector('.right-arrow');
-    if (rightArrow) {
-        rightArrow.style.display = 'none';
     }
 });
