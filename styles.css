@@ -8,7 +8,8 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     overflow-x: hidden;
-    margin-top: env(safe-area-inset-top); /* Asigură spațiul pentru notch pe iPhone */
+    margin-top: env(safe-area-inset-top);
+    /* Asigură spațiul pentru notch pe iPhone */
 }
 
 header {
@@ -102,7 +103,9 @@ footer {
     width: 100%;
 }
 
+
 /* Stiluri pentru galerie */
+
 .gallery {
     display: flex;
     justify-content: center;
@@ -117,7 +120,9 @@ footer {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+
 /* Stilizare săgeți de navigare */
+
 .left-arrow,
 .right-arrow {
     position: absolute;
@@ -132,10 +137,13 @@ footer {
     opacity: 0.5;
     transition: opacity 0.3s, transform 0.3s;
     z-index: 1000;
-    width: 40px; /* Dimensiunea săgeților */
-    height: 40px; /* Dimensiunea săgeților */
+    width: 30px;
+    /* Dimensiunea săgeților */
+    height: 30px;
+    /* Dimensiunea săgeților */
     text-align: center;
-    line-height: 40px; /* Centralizează vertical textul */
+    line-height: 30px;
+    /* Centralizează vertical textul */
     border-radius: 50%;
 }
 
@@ -149,9 +157,17 @@ footer {
 
 .left-arrow::before,
 .right-arrow::before {
-    content: '>>'; /* Simbolul săgeții */
+    content: '<<';
+    /* Simbolul săgeții pentru stânga */
     font-weight: bold;
+    font-size: 1em;
+    /* Mărimea semnului */
     transition: opacity 0.3s, transform 0.3s;
+}
+
+.right-arrow::before {
+    content: '>>';
+    /* Simbolul săgeții pentru dreapta */
 }
 
 .left-arrow:hover,
@@ -159,4 +175,20 @@ footer {
     opacity: 0.8;
 }
 
+@media (max-width: 768px) {
+    .left-arrow,
+    .right-arrow {
+        font-size: 1em;
+        /* Mărime mică pentru săgeți pe mobil */
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+        /* Centralizează vertical textul */
+    }
+    .left-arrow::before,
+    .right-arrow::before {
+        font-size: 0.75em;
+        /* Font mai mic pentru simboluri pe mobil */
+    }
+}
 
