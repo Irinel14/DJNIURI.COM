@@ -127,7 +127,9 @@ footer {
 
 .left-arrow,
 .right-arrow {
-    position: fixed;
+    position: absolute;
+    bottom: 10px;
+    /* Distanța de la marginea de jos */
     font-size: 1em;
     color: #fff;
     background-color: rgba(0, 0, 0, 0.5);
@@ -138,45 +140,45 @@ footer {
     transition: opacity 0.3s, transform 0.3s;
     z-index: 1000;
     width: 20px;
+    /* Dimensiunea săgeților */
     height: 20px;
+    /* Dimensiunea săgeților */
     text-align: center;
     line-height: 20px;
+    /* Centralizează vertical textul */
     border-radius: 50%;
 }
 
 .left-arrow {
     left: 10px;
-    bottom: 10px;
+    /* Poziționare la stânga jos */
 }
 
 .right-arrow {
     right: 10px;
-    bottom: 10px;
+    /* Poziționare la dreapta jos */
 }
 
 .left-arrow::before,
 .right-arrow::before {
     content: '';
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border-style: solid;
+    /* Am eliminat textul dinaintea săgeților */
+    font-weight: bold;
     transition: opacity 0.3s, transform 0.3s;
-    text-shadow: none;
-}
-
-.left-arrow::before {
-    border-width: 4px 6px 4px 0;
-    border-color: transparent rgba(255, 255, 255, 0.8) transparent transparent;
-}
-
-.right-arrow::before {
-    border-width: 4px 0 4px 6px;
-    border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);
 }
 
 .left-arrow:hover,
 .right-arrow:hover {
     opacity: 0.8;
+}
+
+.left-arrow::before {
+    content: '<<';
+    /* Simbolul săgeții pentru stânga */
+}
+
+.right-arrow::before {
+    content: '>>';
+    /* Simbolul săgeții pentru dreapta */
 }
 
