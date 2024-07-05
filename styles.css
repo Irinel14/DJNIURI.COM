@@ -8,8 +8,6 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     overflow-x: hidden;
-    margin-top: env(safe-area-inset-top);
-    /* Asigură spațiul pentru notch pe iPhone */
 }
 
 header {
@@ -33,8 +31,6 @@ header p {
     position: relative;
     width: 100%;
     overflow: hidden;
-    margin-bottom: 40px;
-    /* Adăugăm o margine jos pentru a face loc săgeților */
 }
 
 .slider {
@@ -46,11 +42,54 @@ header p {
 .slide {
     min-width: 100%;
     padding: 20px;
-    margin: 10px auto;
-    max-width: 90%;
+    margin: 20px auto;
+    max-width: 800px;
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
     box-sizing: border-box;
+}
+
+.nav-arrow {
+    position: absolute;
+    top: calc(100% - 40px);
+    font-size: 1em;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 4px;
+    cursor: pointer;
+    user-select: none;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+    z-index: 1000;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    border-radius: 50%;
+}
+
+.left-arrow {
+    left: 10px;
+}
+
+.right-arrow {
+    right: 10px;
+}
+
+.left-arrow::before,
+.right-arrow::before {
+    content: '>>';
+    font-weight: bold;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.left-arrow:hover,
+.right-arrow:hover {
+    opacity: 0.8;
+}
+
+.left-arrow::before {
+    content: '<<';
 }
 
 h2 {
@@ -105,9 +144,6 @@ footer {
     width: 100%;
 }
 
-
-/* Stiluri pentru galerie */
-
 .gallery {
     display: flex;
     justify-content: center;
@@ -120,65 +156,5 @@ footer {
     max-height: 150px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-
-/* Stilizare săgeți de navigare */
-
-.left-arrow,
-.right-arrow {
-    position: absolute;
-    bottom: 10px;
-    /* Distanța de la marginea de jos */
-    font-size: 1em;
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 4px;
-    cursor: pointer;
-    user-select: none;
-    opacity: 0.5;
-    transition: opacity 0.3s, transform 0.3s;
-    z-index: 1000;
-    width: 20px;
-    /* Dimensiunea săgeților */
-    height: 20px;
-    /* Dimensiunea săgeților */
-    text-align: center;
-    line-height: 20px;
-    /* Centralizează vertical textul */
-    border-radius: 50%;
-}
-
-.left-arrow {
-    left: 10px;
-    /* Poziționare la stânga jos */
-}
-
-.right-arrow {
-    right: 10px;
-    /* Poziționare la dreapta jos */
-}
-
-.left-arrow::before,
-.right-arrow::before {
-    content: '';
-    /* Am eliminat textul dinaintea săgeților */
-    font-weight: bold;
-    transition: opacity 0.3s, transform 0.3s;
-}
-
-.left-arrow:hover,
-.right-arrow:hover {
-    opacity: 0.8;
-}
-
-.left-arrow::before {
-    content: '<<';
-    /* Simbolul săgeții pentru stânga */
-}
-
-.right-arrow::before {
-    content: '>>';
-    /* Simbolul săgeții pentru dreapta */
 }
 
