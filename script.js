@@ -3,87 +3,93 @@ document.addEventListener('DOMContentLoaded', function() {
     const slides = document.querySelectorAll('.slide');
     const leftArrow = document.querySelector('.left-arrow');
     const rightArrow = document.querySelector('.right-arrow');
-    let currentIndex = 1; // Indexul curent al slide-ului, începând cu al doilea slide
+    let currentIndex = 0;
 
-    // Funcție pentru actualizarea poziției slider-ului
     function updateSliderPosition() {
-        slider.style.transform = `translateX(${-currentIndex * 100}%)`;
+        console.log('Updating slider position to index:', currentIndex);
+        slider.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
 
-    // Adăugăm event listener pentru butonul stânga
     leftArrow.addEventListener('click', () => {
-        currentIndex--;
-        if (currentIndex < 0) {
-            currentIndex = slides.length - 3; // Setăm la penultimul slide
+        console.log('Left arrow clicked');
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateSliderPosition();
         }
-        updateSliderPosition();
+        console.log('Current index after left click:', currentIndex);
     });
 
-    // Adăugăm event listener pentru butonul dreapta
     rightArrow.addEventListener('click', () => {
-        currentIndex++;
-        if (currentIndex >= slides.length - 1) {
-            currentIndex = 1; // Setăm la al doilea slide
+        console.log('Right arrow clicked');
+        if (currentIndex < slides.length - 1) {
+            currentIndex++;
+            updateSliderPosition();
         }
-        updateSliderPosition();
+        console.log('Current index after right click:', currentIndex);
     });
 
-    // Setăm slide-urile inițiale pentru a asigura scroll-ul infinit
-    slides.forEach((slide, index) => {
-        slide.style.left = `${index * 100}%`;
+    // Allow touch swiping for mobile devices
+    let startX;
+    let isDown = false;
+
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        startX = e.pageX;
+        console.log('Mouse down:', startX);
     });
 
-    // Clonăm primul și ultimul slide pentru a permite scroll-ul infinit
-    const firstClone = slides[0].cloneNode(true);
-    const lastClone = slides[slides.length - 1].cloneNode(true);
-
-    slider.appendChild(firstClone);
-    slider.insertBefore(lastClone, slides[0]);
-
-    // Inițializăm slider-ul la slide-ul curent
-    slider.style.transform = `translateX(${-currentIndex * 100}%)`;
-
-    // Funcție pentru actualizarea slide-urilor la redimensionarea ferestrei
-    function updateSlides() {
-        slides.forEach((slide, index) => {
-            slide.style.left = `${index * 100}%`;
-        });
-        slider.style.transform = `translateX(${-currentIndex * 100}%)`;
-    }
-
-    // Actualizăm slide-urile la redimensionarea ferestrei
-    window.addEventListener('resize', updateSlides);
-
-    // Logica pentru swipe pe dispozitive mobile
-    let touchStartX = 0;
-    let touchEndX = 0;
+    slider.addEventListener('mouseup', (e) => {
+        if (!isDown) return;
+        isDown = false;
+        const endX = e.pageX;
+        console.log('Mouse up:', endX);
+        if (startX - endX > 50) {
+            // Swipe left
+            if (currentIndex < slides.length - 1) {
+                currentIndex++;
+                updateSliderPosition();
+            }
+        } else if (endX - startX > 50) {
+            // Swipe right
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSliderPosition();
+            }
+        }
+        console.log('Swipe action completed. Current index:', currentIndex);
+    });
 
     slider.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
+        startX = e.touches[0].pageX;
+        isDown = true;
+        console.log('Touch start:', startX);
     });
 
     slider.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].clientX;
-        handleGesture();
+        if (!isDown) return;
+        isDown = false;
+        const endX = e.changedTouches[0].pageX;
+        console.log('Touch end:', endX);
+        if (startX - endX > 50) {
+            // Swipe left
+            if (currentIndex < slides.length - 1) {
+                currentIndex++;
+                updateSliderPosition();
+            }
+        } else if (endX - startX > 50) {
+            // Swipe right
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSliderPosition();
+            }
+        }
+        console.log('Swipe action completed. Current index:', currentIndex);
     });
 
-    function handleGesture() {
-        if (touchStartX - touchEndX > 50) {
-            // Swipe left
-            currentIndex++;
-            if (currentIndex >= slides.length - 1) {
-                currentIndex = 1;
-            }
-            updateSliderPosition();
+    slider.addEventListener('mouseleave', () => {
+        if (isDown) {
+            isDown = false;
+            console.log('Mouse leave. Swipe action cancelled.');
         }
-
-        if (touchEndX - touchStartX > 50) {
-            // Swipe right
-            currentIndex--;
-            if (currentIndex < 0) {
-                currentIndex = slides.length - 3;
-            }
-            updateSliderPosition();
-        }
-    }
+    });
 });
