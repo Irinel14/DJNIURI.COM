@@ -7,13 +7,12 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    overflow-x: hidden;
-    /* Previne scroll-ul orizontal */
+    overflow-x: hidden; /* Previne scroll-ul orizontal */
+    margin-top: env(safe-area-inset-top); /* Asigură spațiul pentru notch pe iPhone */
 }
 
 header {
-    background-color: rgba(0, 0, 0, 0.5);
-    /* Mai transparent pentru a vedea fundalul */
+    background-color: rgba(0, 0, 0, 0.5); /* Mai transparent pentru a vedea fundalul */
     color: #fff;
     padding: 20px 0;
     text-align: center;
@@ -43,19 +42,11 @@ header p {
 .slide {
     min-width: 100%;
     padding: 20px;
-    margin: 20px auto;
-    max-width: 800px;
-    background-color: rgba(255, 255, 255, 0.6);
-    /* Mai transparent pentru a vedea fundalul */
+    margin: 10px auto; /* Reducem margin-ul pentru a face secțiunile mai compacte */
+    max-width: 90%; /* Reducem lățimea maximă pentru ecranele mici */
+    background-color: rgba(255, 255, 255, 0.6); /* Mai transparent pentru a vedea fundalul */
     border-radius: 10px;
     box-sizing: border-box;
-}
-
-
-/* Eliminarea stilurilor pentru săgeți */
-
-.nav-arrow {
-    display: none;
 }
 
 h2 {
@@ -93,8 +84,7 @@ a:hover {
 }
 
 blockquote {
-    background-color: rgba(249, 249, 249, 0.4);
-    /* Mai transparent pentru a vedea fundalul */
+    background-color: rgba(249, 249, 249, 0.4); /* Mai transparent pentru a vedea fundalul */
     border-left: 10px solid #ccc;
     margin: 20px 0;
     padding: 10px 20px;
@@ -102,8 +92,7 @@ blockquote {
 }
 
 footer {
-    background-color: rgba(0, 0, 0, 0.5);
-    /* Mai transparent pentru a vedea fundalul */
+    background-color: rgba(0, 0, 0, 0.5); /* Mai transparent pentru a vedea fundalul */
     color: #fff;
     text-align: center;
     padding: 10px 0;
@@ -112,9 +101,7 @@ footer {
     width: 100%;
 }
 
-
 /* Stiluri pentru galerie */
-
 .gallery {
     display: flex;
     justify-content: center;
@@ -124,8 +111,16 @@ footer {
 
 .gallery img {
     max-width: 100%;
-    max-height: 150px;
-    /* Dimensiuni potrivite */
+    max-height: 150px; /* Dimensiuni potrivite */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+/* Stiluri pentru ecrane mici (max-width: 768px) */
+@media (max-width: 768px) {
+    .slide {
+        padding: 10px; /* Reducem padding-ul pentru secțiunile slide */
+        margin: 5px auto; /* Reducem margin-ul pentru secțiunile slide */
+    }
+}
+
